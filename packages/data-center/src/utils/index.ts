@@ -1,9 +1,21 @@
 import { Workspace as BlocksuiteWorkspace } from '@blocksuite/store';
 import { BlockSchema } from '@blocksuite/blocks/models';
+import { token } from 'src/provider/affine/apis/token';
 
-export const createBlocksuiteWorkspace = (workspaceId: string) => {
+export const createBlocksuiteWorkspace = (
+  workspaceId: string,
+  providerId?: string
+) => {
   return new BlocksuiteWorkspace({
     room: workspaceId,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    getBlobOptions:
+      providerId === 'affine'
+        ? (key: string) => {
+            return { api: '/api/workspace', token: token.token }[key];
+          }
+        : undefined,
   }).register(BlockSchema);
 };
 

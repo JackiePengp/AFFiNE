@@ -116,12 +116,12 @@ export class DataCenter {
    * get a new workspace only has room id
    * @param {string} workspaceId workspace id
    */
-  private _getBlocksuiteWorkspace(workspaceId: string) {
+  private _getBlocksuiteWorkspace(workspaceId: string, providerId?: string) {
     // const workspaceInfo = this._workspaceUnitCollection.find(workspaceId);
     // assert(workspaceInfo, 'Workspace not found');
     return (
       // this._workspaceInstances.get(workspaceId) ||
-      createBlocksuiteWorkspace(workspaceId)
+      createBlocksuiteWorkspace(workspaceId, providerId)
     );
   }
 

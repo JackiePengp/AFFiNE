@@ -179,11 +179,6 @@ export class AffineProvider extends BaseProvider {
   }
 
   override async warpWorkspace(workspace: BlocksuiteWorkspace) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    workspace.setGettingBlobOptions((key: string) => {
-      return { api: '/api/workspace', token: token.token }[key];
-    });
     await this._applyCloudUpdates(workspace);
     const { room } = workspace;
     assert(room);
@@ -395,7 +390,7 @@ export class AffineProvider extends BaseProvider {
       syncMode: 'core',
     });
 
-    const blocksuiteWorkspace = createBlocksuiteWorkspace(id);
+    const blocksuiteWorkspace = createBlocksuiteWorkspace(id, this.id);
     assert(workspaceUnit.blocksuiteWorkspace);
     await applyUpdate(
       blocksuiteWorkspace,
